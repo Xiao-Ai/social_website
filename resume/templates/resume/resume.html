@@ -1,0 +1,115 @@
+{% extends 'resume/base_resume.html' %}
+{% block resume %}
+{% if experience_obj == None and education_obj == None %}
+<div class="progress">
+  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+    <span class="sr-only">30% Complete</span>
+    Info Complete
+  </div>
+</div>
+{% endif %}
+<div class="row">
+<div class="col-xs-12 col-md-8 col-md-offset-2">
+	<table class="table table-bordered table-hover">
+		<caption style="text-align: center;">个人信息</caption>
+		<tr class="active">
+			<th>姓名: </th>
+			<td>{{ user_obj.last_name }}{{ user_obj.first_name }}</td>
+			<td rowspan="4" colspan="2" style="padding: 1%;"><img class="img-responsive" src="{{ info_obj.pic.url }}"></img></td>
+		</tr>
+		<tr class="active">
+			<th>邮箱: </th>
+			<td>{{ info_obj.email }}</td>
+		</tr>
+		<tr class="active">
+			<th>性别: </th>
+			<td>{{ info_obj.gender }}</td>
+		</tr>
+		<tr class="active">
+			<th>电话号码: </th>
+			<td>{{ info_obj.phone }}</td>
+		</tr>
+		<tr class="active">
+			<th>地址: </th>
+			<td>{{ info_obj.address }}</td>
+			<th style="width: 10%">年龄: </th>
+			<td style="width: 10%">{{ info_obj.age }}</td>
+		</tr>
+		<tr class="active">
+			<th>个人简介: </th>
+			<td colspan="3">{{ info_obj.profile }}</td>
+		</tr>
+	</table>
+</div>
+</div>
+
+{% if experience_obj == None and education_obj == None %}
+<div class="row">
+	<div class="col-xs-12 col-md-8 col-md-offset-2">
+		<div style="text-align: center">
+			<h3>You have only submitted your personal information.</h3>
+			<h3>Wanna add more info for your resume?</h3>
+		</div>
+		<br>
+		<a class="btn btn-danger center-block" style="width: 200px;" href="/resume/resume_edu/">Complete your resume</a>
+	</div>
+</div>
+{% else %}
+
+<div class="row">
+<div class="col-xs-12 col-md-8 col-md-offset-2">
+	<table class="table table-bordered table-hover">
+		<caption style="text-align: center;">教育背景</caption>
+		<tr class="active">
+			<th>学历: </th>
+			<td>{{ education_obj.degree }}</td>
+		</tr>
+		<tr class="active">
+			<th>学校: </th>
+			<td>{{ education_obj.school }}</td>
+		</tr>
+		<tr class="active">
+			<th>院系: </th>
+			<td>{{ education_obj.department }}</td>
+		</tr>
+		<tr class="active">
+			<th>专业: </th>
+			<td colspan="3">{{ info_obj.major }}</td>
+		</tr>
+	</table>
+</div>
+</div>
+
+<div class="row">
+<div class="col-xs-12 col-md-8 col-md-offset-2">
+	<table class="table table-bordered table-hover">
+		<caption style="text-align: center;">活动经历</caption>
+		<tr class="active">
+			<th>活动: </th>
+			<td>{{ experience_obj.activity }}</td>
+		</tr>
+		<tr class="active">
+			<th>实习经历: </th>
+			<td>{{ experience_obj.internship }}</td>
+		</tr>
+		<tr class="active">
+			<th>奖项: </th>
+			<td>{{ experience_obj.awards }}</td>
+		</tr>
+		<tr class="active">
+			<th>社团活动: </th>
+			<td>{{ experience_obj.association }}</td>
+		</tr>
+		<tr class="active">
+			<th>其他: </th>
+			<td>{{ experience_obj.other }}</td>
+		</tr>
+
+	</table>
+</div>
+</div>
+{% endif %}
+<br>
+<a class="btn btn-success center-block" style="width: 200px;" href="/status/">Back</a>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+<form method="POST" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="col-xs-12 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1">
+		<a class="btn btn-success btn-block" href="/resume/">
+			My Resume
+		</a>
+		<select id="id_user" name="user" style="visibility: hidden">
+			{% for user in user_list %}
+				{% if user.email == user_obj.email %}
+					<option value="{{user.id}}" selected="selected">{{ user.email }}</option>
+				{% else %}
+					<option value="{{user.id}}">{{ user.email }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+		<textarea id="id_message" name="message" class="form-control" rows="5"></textarea>
+		<div class="post">
+			<div id="upload-file-container">
+				<input id="id_picture" name="picture" type="file"></input>
+			</div>
+			<button id="post_status_btn_lg" type="submit" class="btn btn-danger btn-lg" style="float: right;">
+			Post
+			</button>
+		</div>
+		<button id="post_status_btn_xs" type="submit" class="btn btn-danger btn-block">
+		Post
+		</button>
+	</div>
+</form>

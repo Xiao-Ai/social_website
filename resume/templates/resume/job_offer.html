@@ -1,0 +1,41 @@
+{% extends 'resume/base_resume.html' %}
+{% block job_offer %}
+<a href="/status/" class="btn btn-danger btn-sm" style="position: absolute;">Back</a>
+<style>
+	#offer p {
+		font-size: 4em;
+		color: rgba(211, 0, 0, 0.96);
+	}
+</style>
+{% if offers.count %}
+	￼{% with total=offers.count %}
+	
+	<div class="" style="text-align: center;" id="offer">
+	  <p>Congrats!</p>
+	  <h1>You've got {{total}} offer{{ total|pluralize }}!</h1>
+	</div>
+	{% endwith %}
+{% else %}
+	<div class="" style="text-align: center;" id="offer">
+	  <p>Bummer!</p>
+	  <h1>You haven't got any offer yet...</h1>
+	  <h2>Don't be upset, send more resume!</h2>
+	  <a href="/employer/jobs_all/" class="btn btn-danger">View More Jobs</a>
+	</div>
+{% endif %}
+
+{% for offer in offers %}
+<div class="well" id="jobs" style="">
+	<a data-toggle="popover" data-trigger="focus" onMouseOver="$(this).popover('show')"
+		onMouseOut="$(this).popover('hide')" title="{{ offer }}" 
+		data-content="{{ offer.description }}">
+		<h3>{{ offer }}</h3>
+	</a>
+	<h5>{{ offer.employer }}</h5>
+	<p style="font-size: 15px;">{{ offer.description|truncatechars:30 }}</p>
+	<p class="text-muted" style="font-size: 12px;">{{ offer.timestamp }}</p>
+	<a href='mailto:{{ offer.employer }}?body=Hello, thank you for offering this job for me...' class="btn btn-info">Contact Your Employer Now</a>
+	<br>
+</div>
+{% endfor %}
+{% endblock %}

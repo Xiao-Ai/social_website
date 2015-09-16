@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ friend.last_name }}{{ friend.first_name }} | Resume</title>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/base_homepage.css' %}" rel="stylesheet">
+<link href="{% static 'css/status.css' %}" rel="stylesheet">
+<style>
+body {
+	background: url('{% static "img/background-blur.png" %}') no-repeat
+		center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: conver;
+	background-size: cover;
+	/* 		text-align: center; */
+}
+
+#upload-file-container {
+	margin-left: 15px;
+	display: inline-block;
+	background: url({% static 'img/upload_img.png' %}) no-repeat;
+	width: 42 px;
+	height: 41px;
+}
+
+.container>.well {
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	background-color: rgba(245, 248, 250, 0.9);
+	overflow: hidden;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="well">
+			{% if employer %}
+				{% include 'employer/navbar.html' %}
+				<link href="{% static 'css/flat-ui.css' %}" rel="stylesheet">
+			{% else %}
+				{% include "publish/navbar.html" %}
+			{% endif %}
+			<div class="mycontainer">
+
+			{% block friend %}
+			{% endblock %}
+			
+			{% block add_friend %}
+			{% endblock %}
+
+			</div><!-- end of mycontainer -->
+		</div><!-- end of well -->
+	</div><!-- end of container -->
+	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

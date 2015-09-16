@@ -1,0 +1,95 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect You | Employer</title>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/flat-ui.css' %}" rel="stylesheet">
+<style>
+body {
+	background: url('{% static "img/background-blur.png" %}') no-repeat
+		center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: conver;
+	background-size: cover;
+}
+
+.navbar {
+	border-radius: 5px;
+	border: 0;
+	padding: 5px;
+	margin-bottom: 0;
+}
+
+.container>.well {
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	background-color: rgba(245, 248, 250, 0.9);
+	overflow: hidden;
+}
+
+.mycontainer {
+	padding: 0px 30px 30px 30px;
+}
+
+.login-screen {
+	background-color: rgba(255, 255, 255, 0);
+	padding: 200px 0 0 0;
+}
+
+.mycontainer .login-screen {
+	background-color: rgba(255, 255, 255, 0);
+	padding: 10px 0 0 0;
+}
+
+.mycontainer .login-form {
+	background-color: rgba(52, 73, 94, 0.9);
+}
+
+#jobs {
+	width: 250px;
+	text-align: center;
+	box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.41);
+	float: left;
+	margin: 10px;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			{% block login %}
+			{% endblock %}
+			
+			{% block register %}
+			{% endblock %}
+			
+		</div><!-- end of row -->
+			{% block home %}
+			{% endblock %}
+		
+			{% block post %}
+			{% endblock %}
+		
+			{% block job %}
+			{% endblock %}
+			
+			{% block jobs_all %}
+			{% endblock %}
+			
+			{% block hire %}
+			{% endblock %}
+
+
+	</div><!-- end of container -->
+	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/pagetransitions.js' %}"></script>
+</body>
+</html>

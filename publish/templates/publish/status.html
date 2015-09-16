@@ -1,0 +1,30 @@
+{% extends 'publish/base_homepage.html' %}
+{% block status_odd %}
+{% for status in status_list %}
+	{% for friend in friends_list %}
+		{% for info in info_list %}
+			{% if friend == status.user and friend == info.email%}
+			{% if not status.id|divisibleby:"2" %}
+				<div class="well">
+					{% if status.picture%}
+					<img class="img-responsive" src="{{ status.picture.url }}" style="margin-left:auto; margin-right:auto;"></img>
+					{% endif %}
+					<div class="messages">
+						<div class="row">
+							<div class="col-xs-1" style="margin-right: 30px;">
+								<img class="img-circle" style="width: 40px; height: auto;" src="{{ info.pic.url }}"></img>
+							</div>
+							<div class="col-xs-9" style="padding:0">
+								<h4 style="">{{ status.message }}</h4>
+							</div>
+						</div>
+						<hr>
+						<p class="text-muted">{{ friend.last_name }}{{ friend.first_name }}: &nbsp;{{status.timestamp}}</p>
+					</div>
+				</div>
+			{% endif %}
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+{% endfor %}
+{% endblock %}

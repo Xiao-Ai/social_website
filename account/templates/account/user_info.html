@@ -1,0 +1,80 @@
+{% extends "account/base_register.html" %}
+{% load staticfiles %}
+
+{% block title_of_info %}
+<title>Add More Info | Connect You</title>
+{% endblock %}
+
+{% block info %}
+	<form method="POST" action="" style="padding: 3%" enctype="multipart/form-data">
+	{% csrf_token %}
+	
+	<div class="form-group">
+		<div class="">
+			<select id="id_email" name="email" style="" class="form-control">
+				{% for user in user_list %}
+					{% if user.email == email %}
+						<option value="{{user.id}}" selected="selected">{{ user.email }}</option>
+					{% else %}
+						<option value="{{user.id}}">{{ user.email }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>	
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<select id="id_gender" name="gender" class="form-control">
+				<option value="male" selected="selected">Male</option>
+				<option value="female">Female</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<input type="text" id="id_age" name="age" class="form-control" placeholder="Age" ></input>
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<input type="text" id="id_phone" name="phone" class="form-control" placeholder="Phone number"></input>
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<input type="text" id="id_major" name="major" class="form-control" placeholder="major" required></input>
+		</div>
+	</div>
+
+	<div class="form-group text">
+		<div class="">
+			<textarea id="id_address" maxlength="240" name="address" class="form-control" rows="2" placeholder="Add your address" required></textarea>
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<textarea id="id_profile" maxlength="240" name="profile" class="form-control" rows="2" placeholder="Wirte your profile" required></textarea>
+		</div>
+	</div>
+
+	<div class="form-group text">
+		<div class="">
+			<p class="help-block" style="text-align: left">Upload your pic</p>
+			<input type="file" id="id_pic" name="pic" required></input>
+		</div>
+	</div>
+	
+	<div class="form-group text">
+		<div class="">
+			<input class="btn btn-block btn-success" type="submit" value="Join" />
+		</div>
+	</div>
+	<a href="/account/" class="btn btn-danger btn-block">Back</a>
+
+	</form><!-- end of info form -->
+{% endblock %}

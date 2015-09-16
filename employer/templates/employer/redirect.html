@@ -1,0 +1,58 @@
+{% extends 'employer/base_employer.html' %}
+{% block hire %}
+<script>  
+     
+</script> 
+
+<div class="col-sm-6 col-sm-offset-3">
+
+<!-- for hire success -->
+{% if employer %}
+	<div class="alert alert-info" style="margin-top: 250px; text-align: center;">
+		<h1>Success！</h1><br>
+		<a id="showid"></a><br>
+		<a href="javascript:history.go(-1);"class="btn btn-primary">Back</a>
+	</div>
+{% elif user_wrong_password or employer_wrong_password %}
+	<div class="alert alert-info" style="margin-top: 250px; text-align: center;">
+		<h2>Wrong Password！</h2>
+		<a id="showid"></a><br>
+		<a href="{% if user_wrong_password %}/account/{% else %}/employer/{% endif %}"class="btn btn-primary">Back</a>
+	</div>
+{% elif no_user or no_employer %}
+	<div class="alert alert-info" style="margin-top: 250px; text-align: center;">
+		<h2>User Does Not Exist！</h2>
+		<a id="showid"></a><br>
+		<a href="{% if no_user %}/account/{% else %}/employer/{% endif %}"class="btn btn-primary">Back</a>
+	</div>
+{% elif updated_info %}
+	<div class="alert alert-info" style="margin-top: 250px; text-align: center;">
+		<h2>Congrats! You have updated info for {{ user_obj.full_name }}</h2>
+		<a id="showid"></a><br>
+		<a href="/account/"class="btn btn-primary">Back to login</a>
+	</div>
+{% endif %}
+
+
+</div>
+<script type="text/javascript">  
+	var time = 3; 
+	var hired_url = "javascript:history.go(-1);";
+	var user_wrong_password = "/account/";
+	var employer_login_fail = "/employer/";
+
+	function Redirect() {  
+		window.location = {% if employer %} hired_url {% elif user_wrong_password or no_user or updated_info %} user_wrong_password {% elif employer_wrong_password or no_employer %} employer_login_fail {% endif %};  
+	}
+
+	var i = 0;
+
+	function dis() {  
+		document.all.showid.innerHTML = "Redirecting after&nbsp;" + (time - i) + "&nbsp;seconds";
+		i++;  
+	}  
+	timer=setInterval('dis()', 1000);//显示时间  
+	timer=setTimeout('Redirect()',time * 1000); //跳转  
+</script>  
+
+{% endblock %}

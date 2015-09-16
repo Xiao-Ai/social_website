@@ -1,0 +1,74 @@
+{% extends 'resume/base_resume.html' %}
+{% block resume_edu %}
+
+<div class="progress">
+  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+    <span class="sr-only">30% Complete</span>
+    Complete
+  </div>
+  
+  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+    <span class="sr-only">30% Complete</span>
+    Ongoing
+  </div>
+  
+</div>
+
+
+<form method="POST" action="" class="form-horizontal" style="padding: 5% 2%">
+	{% csrf_token %}
+<h3 style="text-align: center;">Add Your Education Information</h3>
+	<div class="form-group">
+
+		<div class="col-sm-12 col-md-6">
+			<select id="id_user" name="user" style="visibility: hidden" class="form-control">
+				{% for user in user_list %}
+					{% if user.email == email %}
+						<option value="{{user.id}}" selected="selected">{{ user.email }}</option>
+					{% else %}
+						<option value="{{user.id}}">{{ user.email }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>	
+		</div>
+	</div>
+	
+	<div class="form-group text">
+	<label for="id_degree"
+			class="visible control-label text1 col-xs-3">Degree</label>
+		<div class="col-sm-12 col-md-6">
+			<select id="id_degree" name="degree" class="form-control">
+				<option value="Bachelor" selected="selected">Bachelor</option>
+				<option value="master">master</option>
+				<option value="doctor">doctor</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="id_school"
+			class="visible control-label text1 col-xs-3">School</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="text" class="form-control" id="id_school"
+				name="school" maxlength="50" placeholder="School" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="id_department"
+			class="visible control-label text1 col-xs-3">Department</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="text" class="form-control" id="id_department"
+				name="department" maxlength="50" placeholder="Department" required>
+		</div>
+	</div>
+
+	<div class="form-group text">
+		<div class="col-md-offset-3 col-md-6">
+			<input type="submit" value="Continue"
+				class="btn btn-block btn-danger"></input>
+		</div>
+	</div>
+</form><!-- end of edu form -->
+
+{% endblock %}

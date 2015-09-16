@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+#status_well>.well {
+	padding: 0;
+	border-radius: 6px;
+	border: 1px solid #dadfe2;
+	background-color: white;
+	overflow: hidden;
+}
+
+hr {
+	margin-bottom: 10px;
+}
+
+.messages {
+	padding: 2% 2% 0 2%;
+}

@@ -1,0 +1,65 @@
+{% extends "account/base_register.html" %}
+{% load staticfiles %}
+
+{% block style_of_register %}
+.text1 {
+	color: #1277cd;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+}
+{% endblock %}
+
+{% block title_of_register %}
+<title>Register | Connect You</title>
+{% endblock %}
+
+{% block register %}
+<form method="POST" action="" class="form-horizontal" style="padding: 5% 2%">
+	{% csrf_token %}
+	<div class="form-group">
+		<label for="id_first_name"
+			class="visible control-label text1 col-xs-4">First Name</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="text" class="form-control" id="id_first_name"
+				name="first_name" maxlength="50" placeholder="First Name" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="id_last_name" class="visible control-label text1 col-xs-4">Last
+			Name</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="text" class="form-control" id="id_last_name"
+				name="last_name" maxlength="50" placeholder="Last Name" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="id_email" class="visible control-label text1 col-xs-4">Email</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="email" class="form-control" id="id_email" name="email"
+				maxlength="75" placeholder="Email" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="id_password" class="visible control-label text1 col-xs-4">password</label>
+		<div class="col-sm-12 col-md-6">
+			<input type="password" class="form-control" id="id_password"
+				name="password" maxlength="18" placeholder="Password" required>
+		</div>
+	</div>
+
+	<div class="form-group text">
+		<div class="col-md-offset-4 col-md-6">
+			<input type="submit" value="Register"
+				class="btn btn-block btn-primary"></input>
+		</div>
+	</div>
+	<div class="form-group text">
+		<div class="col-md-offset-4 col-md-6">
+			<a href="/account/" class="btn btn-block btn-danger">Back</a>
+		</div>
+	</div>
+</form><!-- end of register form -->
+
+{% endblock %}

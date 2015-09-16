@@ -1,0 +1,114 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect You | Search</title>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/base_homepage.css' %}" rel="stylesheet">
+<link href="{% static 'css/status.css' %}" rel="stylesheet">
+<style>
+body {
+	background: url('{% static "img/background-blur.png" %}') no-repeat
+		center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: conver;
+	background-size: cover;
+	/* 		text-align: center; */
+}
+
+#upload-file-container {
+	margin-left: 15px;
+	display: inline-block;
+	background: url({% static 'img/upload_img.png' %}) no-repeat;
+	width: 42 px;
+	height: 41px;
+}
+
+.container>.well {
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	background-color: rgba(245, 248, 250, 0.9);
+	overflow: hidden;
+}
+
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="well">
+{% include "publish/navbar.html" %}
+<a href="/status/" class="btn btn-danger btn-sm" style="position: absolute;">Back</a>
+<div class="mycontainer">
+
+<div class="col-sm-8 col-sm-offset-2">
+<h4>Found {{ friends.count }} users:</h4>
+{% for friend in friends %}
+{% for info in friends_info_list %}
+{% if info.email == friend %}
+
+<div style="float: left; padding-right: 3%;">
+	<div class="well" style="width:150px; text-align:center; box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.41);">
+		<form method="POST">
+			{% csrf_token %}
+			<a data-toggle="collapse" href="#{{ friend.id }}" aria-expanded="false">
+				<img class="img-responsive img-circle" alt="." src="{{ info.pic.url }}">
+			</a>
+			<a data-toggle="popover" data-trigger="focus" onMouseOver="$(this).popover('show')"
+				onMouseOut="$(this).popover('hide')" title="{{ friend.full_name }}:&nbsp;{{ friend.email }}" 
+				data-content="{{ info.profile }}">
+				<h5>{{ friend.full_name }}</h5>
+			</a>
+			<input style="visibility:hidden" value="{{ friend.id }}" name="friend_id"></input>
+			<button type="submit" class="btn btn-success">Follow {% ifequal info.gender 'male' %} Him {% else %} Her {% endifequal %}</button><br>
+		</form>
+	</div>
+
+	<div class="collapse" id="{{ friend.id }}" style="position:absolute;z-index=1;">
+		<div class="well">
+			<table class="table table-bordered table-hover">
+				<caption style="text-align: center;">个人信息</caption>
+				<tr class="active">
+					<th>姓名: </th>
+					<td>{{ friend.full_name }}</td>
+					<td rowspan="4" colspan="2" style="padding: 1%;"><img class="img-responsive" src="{{ info.pic.url }}"></img></td>
+				</tr>
+				<tr class="active">
+					<th>邮箱: </th>
+					<td>{{ info.email }}</td>
+				</tr>
+				<tr class="active">
+					<th>性别: </th>
+					<td>{{ info.gender }}</td>
+				</tr>
+				<tr class="active">
+					<th>电话号码: </th>
+					<td>{{ info.phone }}</td>
+				</tr>
+				<tr class="active">
+					<th>地址: </th>
+					<td>{{ info.address }}</td>
+					<th style="width: 10%">年龄: </th>
+					<td style="width: 10%">{{ info.age }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+</div><!-- end of mycontainer -->
+</div><!-- end of well -->
+</div><!-- end of container -->
+<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

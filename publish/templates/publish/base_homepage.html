@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ user_obj.last_name }}{{ user_obj.first_name }} | Status</title>
+
+{% if employer %}
+<link href="{% static 'css/flat-ui.css' %}" rel="stylesheet">
+{% else %}
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+{% endif %}
+
+<link href="{% static 'css/base_homepage.css' %}" rel="stylesheet">
+<link href="{% static 'css/status.css' %}" rel="stylesheet">
+<style>
+body {
+	background: url('{% static "img/background-blur.png" %}') no-repeat
+		center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: conver;
+	background-size: cover;
+	/* 		text-align: center; */
+}
+
+#upload-file-container {
+	margin-left: 15px;
+	display: inline-block;
+	background: url({% static 'img/upload_img.png' %}) no-repeat;
+	width: 42 px;
+	height: 41px;
+}
+
+textarea.form-control {
+ 	border-top-left-radius: 10px;
+ 	border-top-right-radius: 10px;
+	border-bottom-right-radius: 0px;
+ 	border-bottom-left-radius: 0px;
+	border-bottom: 0px;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		{% if user_obj %}
+		<div class="well">
+			{% include "publish/navbar.html" %}
+			<div class="mycontainer">
+				<div class="row">
+					<!-- friend list -->
+					<div class="col-md-3">
+						{% include "publish/friend_list.html" %}
+					</div>
+					<!-- end of friend list -->
+					
+					<!-- user's post and status_even-->
+					<div class="col-xs-12 col-sm-6 col-md-5">
+						
+						<div class="row" style="margin-bottom: 30px;">
+							{% include "publish/status_post.html" %}
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-12 col-sm-11 col-sm-offset-1" id="status_well">
+							{% block status_odd %}
+							{% endblock %}
+							</div>
+						</div>	
+					</div>
+					<!-- end of user's post -->
+					
+					<!-- status even-->
+					<div class="col-xs-12 col-sm-6 col-md-4" id="status_well">
+					{% include 'publish/status_even.html' %}
+					</div>
+					<!-- end of friends status -->
+				</div><!-- end of row -->
+			</div><!-- end of mycontainer -->
+		</div><!-- end of well -->
+				{% else %}
+				<div style="text-align: center; margin: 25% 32%; width: 300px;">
+					<div class="alert alert-info" role="alert">
+					  	<a href="/account/login" class="alert-link">
+						<h1>Ooops!</h1>
+						<h2>Please Login</h2>
+						</a>
+					</div>
+				</div>
+				{% endif %}
+	</div><!-- end of container -->
+
+	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

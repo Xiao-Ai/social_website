@@ -1,0 +1,48 @@
+<button style="text-align: center; font-size: 20px;" class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Following
+<span class="badge">{{ user_obj.friends.count|add:"-1" }}</span>
+</button>
+<div class="collapse" id="collapseExample">
+  <div class="list-group">
+{% for friend in friends_list %}
+	{% for info in info_list %}
+		{% if friend == info.email and friend != user_obj %}
+		<a class="list-group-item" href="/friend_{{ friend.id }}">
+		<div class="row">
+			<div class="col-xs-3">
+				<img class="" style="width: 40px; height: auto;" src="{{ info.pic.url }}"></img>
+			</div>
+			<div class="col-xs-8">
+				<h4>{{ friend.last_name }}{{ friend.first_name }}</h4>
+			</div>
+		</div>
+		</a>
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+	</div>
+</div>
+<br>
+
+<button style="text-align: center; font-size: 20px;" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#myjobs" aria-expanded="true" aria-controls="myjobs">
+  New Jobs
+<span class="badge">2</span>
+</button>
+<div class="collapse" id="myjobs">
+<div class="list-group">
+{% for job in jobs %}
+<a class="list-group-item" style="text-align: center">
+	<h3>{{ job }}</h3>
+	<p>{{ job.employer }}</p>
+	<p style="font-size: 15px;">{{ job.description|truncatechars:30 }}</p>
+	<p class="text-muted" style="font-size: 12px;">{{ job.timestamp }}</p>
+	<button onclick="location='/employer/job_{{ job.id }}'" class="btn btn-danger">Check It Out</button>
+</a>
+{% endfor %}
+<button onclick="location='/employer/jobs_all/'" class="btn btn-primary btn-block">View All Jobs</button>
+</div>
+</div>
+
+
+
+

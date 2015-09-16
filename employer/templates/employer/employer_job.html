@@ -1,0 +1,110 @@
+{% extends 'employer/base_employer.html' %}
+{% load staticfiles %}
+{% block job %}
+<div class="well">
+
+{% if employer %}
+{% include 'employer/navbar.html' %}
+<a class="btn btn-danger btn-sm" href="/employer/home/" style="position: absolute; z-index: 1; width:45px; padding:3px;">Back</a>
+{% endif %}
+
+{% if user_obj %}
+{% include 'publish/navbar.html' %}
+<a class="btn btn-danger btn-sm" href="javascript:history.go(-1);" style="position: absolute; z-index: 1; width:45px; padding:3px;">Back</a>
+{% endif %}
+
+<div class="mycontainer">
+<div class="col-md-8">
+<div class="list-group" style="margin-top: 20px">
+	<a class="list-group-item">
+		<h4 class="list-group-item-heading">Employer</h4>
+		<p class="list-group-item-text">{{ job.employer }}</p>
+	</a>
+	<a class="list-group-item">
+		<br>
+		<h4 class="list-group-item-heading">Job Title</h4>
+		<p class="list-group-item-text">{{ job.title }}</p>
+	</a>
+	<a class="list-group-item">
+		<br>
+		<h4 class="list-group-item-heading">Descriptions</h4>
+		<p class="list-group-item-text">{{ job.description }}</p>
+	</a>
+	<a class="list-group-item">
+		<br>
+		<h4 class="list-group-item-heading">Requirements</h4>
+		<p class="list-group-item-text">{{ job.requirement }}</p>
+	</a>
+	<a class="list-group-item">
+		<br>
+		<h4 class="list-group-item-heading">Address</h4>
+		<p class="list-group-item-text">{{ job.address }}</p>
+	</a>
+	{% if job.other %}
+	<a class="list-group-item">
+		<br>
+		<h4 class="list-group-item-heading">Others</h4>
+		<p class="list-group-item-text">{{ job.other }}</p>
+	</a>
+	{% endif %}
+</div>
+</div><!-- end of job -->
+
+<div class="col-md-4">
+{% if user_obj %}
+	<form method="POST" action="">
+	{% csrf_token %}
+		<button type="submit" class="btn btn-danger btn-block btn-lg">Send My Resume</button>
+	</form>
+{% endif %}
+
+<!-- applicants -->
+<div class="list-group" style="margin-top: 20px">
+	<a class="list-group-item active" style="text-align: center;">
+		<p style=" color: white;" class="list-group-item-text">Applicants</p>
+	</a>
+{% for user in job.applicants.all %}
+{% for info in user_info_list %}
+{% if user == info.email %}
+	<a class="list-group-item" href="/friend_{{ user.id }}">
+		<div class="row">
+			<div class="col-xs-3"><img src="{{ info.pic.url }}" style="width:45px;"></img></div>
+			<div class="col-xs-8">
+				<p class="list-group-item-text">{{ user.full_name }}</p>
+				<p style="font-size: 15px;" class="list-group-item-text">{{ user.email }}</p>
+			</div>
+		</div>
+	</a>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+
+<!-- employees -->
+{% if employer %}
+<div class="list-group" style="margin-top: 20px">
+	<a class="list-group-item active btn btn-success" style="text-align: center;">
+		<p style=" color: white;" class="list-group-item-text">My Employees</p>
+	</a>
+{% for employee in job.employees.all %}
+{% for info in user_info_list %}
+{% if employee == info.email %}
+	<a class="list-group-item" href="/friend_{{ employee.id }}">
+		<div class="row">
+			<div class="col-xs-3"><img src="{{ info.pic.url }}" style="width:45px;"></img></div>
+			<div class="col-xs-8">
+				<p class="list-group-item-text">{{ employee.full_name }}</p>
+				<p style="font-size: 15px;" class="list-group-item-text">{{ employee.email }}</p>
+			</div>
+		</div>
+	</a>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+{% endif %}
+
+</div>
+</div><!-- end of mycontainer -->
+</div><!-- end of well -->
+{% endblock %}

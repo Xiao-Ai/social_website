@@ -1,0 +1,131 @@
+{% extends 'friend/base_friend.html' %}
+{% load staticfiles %}
+{% block friend %}
+{% if employer %}
+	<a class="btn btn-danger btn-sm" href="/employer/job_{{job_id}}" style="position: absolute; z-index: 1; width:45px; padding:3px;">Back</a>
+{% else %}
+	<a class="btn btn-danger btn-sm" href="javascript:history.go(-1);" style="position: absolute; z-index: 1; width:45px; padding:3px;">Back</a>
+{% endif %}
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-bordered table-hover">
+					<caption style="text-align: center;">个人信息</caption>
+					<tr class="active">
+						<th>姓名: </th>
+						<td>{{ friend.last_name }}{{ friend.first_name }}</td>
+						<td rowspan="4" colspan="2" style="padding: 1%;"><img class="img-responsive" src="{{ friend_info.pic.url }}"></img></td>
+					</tr>
+					<tr class="active">
+						<th>邮箱: </th>
+						<td>{{ friend_info.email }}</td>
+					</tr>
+					<tr class="active">
+						<th>性别: </th>
+						<td>{{ friend_info.gender }}</td>
+					</tr>
+					<tr class="active">
+						<th>电话号码: </th>
+						<td>{{ friend_info.phone }}</td>
+					</tr>
+					<tr class="active">
+						<th>地址: </th>
+						<td>{{ friend_info.address }}</td>
+						<th style="width: 10%">年龄: </th>
+						<td style="width: 10%">{{ friend_info.age }}</td>
+					</tr>
+					<tr class="active">
+						<th>个人简介: </th>
+						<td colspan="3">{{ friend_info.profile }}</td>
+					</tr>
+				</table>
+			</div>
+		</div><!-- end of info row -->
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-bordered table-hover">
+					<caption style="text-align: center;">教育背景</caption>
+					<tr class="active">
+						<th>学历: </th>
+						<td>{{ friend_education_obj.degree }}</td>
+					</tr>
+					<tr class="active">
+						<th>学校: </th>
+						<td>{{ friend_education_obj.school }}</td>
+					</tr>
+					<tr class="active">
+						<th>院系: </th>
+						<td>{{ friend_education_obj.department }}</td>
+					</tr>
+					<tr class="active">
+						<th>专业: </th>
+						<td colspan="3">{{ friend_info.major }}</td>
+					</tr>
+				</table>
+			</div>
+		</div><!-- end of edu row -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-bordered table-hover">
+					<caption style="text-align: center;">活动经历</caption>
+					<tr class="active">
+						<th>活动: </th>
+						<td>{{ friend_experience_obj.activity }}</td>
+					</tr>
+					<tr class="active">
+						<th>实习经历: </th>
+						<td>{{ friend_experience_obj.internship }}</td>
+					</tr>
+					<tr class="active">
+						<th>奖项: </th>
+						<td>{{ friend_experience_obj.awards }}</td>
+					</tr>
+					<tr class="active">
+						<th>社团活动: </th>
+						<td>{{ friend_experience_obj.association }}</td>
+					</tr>
+					<tr class="active">
+						<th>其他: </th>
+						<td>{{ friend_experience_obj.other }}</td>
+					</tr>
+				</table>
+			</div>
+		</div><!-- end of act row -->
+	</div>
+
+	<div class="col-md-4">
+		<!-- for employers & hire -->
+		{% if employer %}
+		<form method="GET" action="/employer/hired/">
+			{% csrf_token %}
+			<input value="hire" name="hire" style="visibility:hidden;"></input>
+			<button type="submit" class="btn btn-danger btn-block">I want {% if friend_info.gender == 'male' %}him !{% else %}her !{% endif %}</button>
+		</form>
+		{% endif %}
+
+		{% for status in friend_status_list %}
+			<div class="well">
+				{% if status.picture%}
+				<img class="img-responsive" src="{{ status.picture.url }}" style="margin-left:auto; margin-right:auto;"></img>
+				{% endif %}
+				<div class="messages">
+					<div class="row">
+						<div class="col-xs-1" style="margin-right: 30px;">
+							<img class="" style="width: 40px; height: auto;" src="{{ friend_info.pic.url }}"></img>
+						</div>
+						<div class="col-xs-9" style="padding:0">
+							<h4 style="">{{ status.message }}</h4>
+						</div>
+					</div>
+					<hr>
+					<p class="text-muted">{{ friend.last_name }}{{ friend.first_name }}: &nbsp;{{status.timestamp}}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

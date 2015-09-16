@@ -1,0 +1,30 @@
+{% extends 'employer/base_employer.html' %}
+{% block jobs_all %}
+<div class="well">
+{% include 'publish/navbar.html' %}
+<a href="/status/" class="btn btn-danger btn-sm" style="position: absolute; z-index: 1; width:45px; padding:3px;">Back</a> 
+<div class="mycontainer">
+
+<div style="text-align: center; margin-bottom: 30px;">
+	<h2>Looking For Job?</h2>
+	<h5>Post Your Resume!</h5>
+	
+</div>
+
+{% for job in job_list %}
+<div class="well" id="jobs" style="">
+	<a data-toggle="popover" data-trigger="focus" onMouseOver="$(this).popover('show')"
+		onMouseOut="$(this).popover('hide')" title="{{ job }}" 
+		data-content="{{ job.description }}">
+		<h7>{{ job }}</h7>
+	</a>
+	<p style="font-size: 15px;">{{ job.description|truncatechars:30 }}</p>
+	<p class="text-muted" style="font-size: 12px;">{{ job.timestamp }}</p>
+	<a href="/employer/job_{{ job.id }}" class="btn btn-info">{{ job.applicants.count }} people has applied</a>
+	<br>
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}
